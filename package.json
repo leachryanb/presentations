@@ -1,0 +1,19 @@
+{
+  "name": "presentations",
+  "version": "0.0.1",
+  "description": "rbl presentatioins",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leachryanb/presentations.git"
+  },
+  "author": "Ryan B Leach",
+  "readmeFilename": "README.md",
+  "scripts": {
+    "preinstall": "bower install"
+  },
+  "gitHead": "874647c6e217d0fd56edcb9b1c2caa41cbe06826",
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-connect": "~0.3.0"
+  }
+}

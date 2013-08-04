@@ -1,0 +1,14 @@
+{
+  "name": "presentations",
+  "version": "0.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  	"reveal.js": "git://github.com/hakimel/reveal.js.git#fe90f2b8c7eb35ae0aae7741e4c687e016740508"
+  }
+}

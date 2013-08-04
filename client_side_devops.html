@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Client-side dev-ops and Workflow</title>
+
+		<meta name="description" content="Client-side dev-ops and Workflow">
+		<meta name="author" content="Ryan B Leach">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="bower_components/reveal.js/css/reveal.min.css">
+		<link rel="stylesheet" href="bower_components/reveal.js/css/theme/night.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="bower_components/reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="bower_components/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<style type="text/css">
+			.part1 body {
+				background: #176489;
+			}
+			.part2 body {
+				background: #D9A41B;
+			}
+			.part3 body {
+				background: #D9441D;
+			}
+			.beatlemania {
+				max-height: 200px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-state="part1">
+					<h1>Client-side dev-ops and Workflow</h1>
+				</section>
+
+				<section data-state="part1">
+					<h3>Part 1: The Development Infrastructure</h3>
+
+					<ul>
+						<li class='fragment'>Build tooling on Node with Grunt.js</li>
+						<li class='fragment'>3rd party library dependency management with NPM, Bower and RequireJs</li>
+						<li class='fragment'>Skaffolding with Grunt and Yeoman</li>
+					</ul>
+				</section>
+
+				<section data-state="part1">
+					<h3>Node.js</h3>
+
+					<blockquote>Node.js is a platform built on Chrome's <strong style="color:#D9A41B">JavaScript runtime</strong> for easily building fast, scalable network applications...</blockquote>
+				</section>
+
+				<section data-state="part1">
+					<h3>Alright, so... ?</h3>
+					<ul>
+						<li>Excellent capabilites as an application server</li>
+						<li class="fragment">(We're not there yet)</li>
+						<li class="fragment">Fast JavaScript runtime === fast utilities...</li>
+						<li class="fragment">Written in "The language of the web"</li>
+					</ul>
+				</section>
+
+				<section data-state="part1">
+					<h3>And the crowd went wild!</h3>
+					<p><img class="beatlemania" src="images/client_side_devops/beatlemania.jpg"></p>
+					<p class="fragment">Me, Ben Almen, and the rest of the JavaScript community, anyway</p>
+				</section>
+
+				<section data-state="part1">
+					<h3>Ben who?</h3>
+					<p>Ben Almen, jQuery plugin creator extraordinaire, built Grunt.js...</p>
+				</section>
+
+				<section data-state="part2">
+					<h3>Part 2: The Development Workflow</h3>
+
+					<ul>
+						<li class='fragment'>Modularity and optimization with RequireJs</li>
+						<li class='fragment'>Client-side Model/View management and server synchronization with Backbone.js</li>
+						<li class='fragment'>Short feedback loop unit tests, functional tests and mocking with Jasmine, Mockjax and PhantomJs</li>
+					</ul>
+				</section>
+
+				<section data-state="part3">
+					<h3>Part 3: Optimization, Packaging and Deployment</h3>
+
+					<ul>
+						<li class='fragment'>Individual developer workflow with pull-request code reviews</li>
+						<li class='fragment'>Deployment with Git, Jenkins and the "Git workflow"</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Talkin' bout my generation...</h3>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="bower_components/reveal.js/lib/js/head.min.js"></script>
+		<script src="bower_components/reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'bower_components/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'bower_components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'bower_components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'bower_components/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'bower_components/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
