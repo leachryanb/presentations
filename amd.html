@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>AMD Modules</title>
+
+		<meta name="description" content="AMD Modules">
+		<meta name="author" content="Ryan B Leach">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="bower_components/reveal.js/css/reveal.min.css">
+		<link rel="stylesheet" href="bower_components/reveal.js/css/theme/night.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css">
+		<link rel="stylesheet" href="bower_components/reveal.js/css/amd.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="bower_components/reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="bower_components/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>AMD and RequireJS</h1>
+					<h3>The missing module manager for the web's primary programming language</h3>
+					<p>(Or - It's time for JavaScript to start acting like an adult)</p>
+				</section>
+
+				<section>
+					<h2>AMD =</h2>
+					<h3><span class="fragment">Asynchronous</span> <span class="fragment">Module</span> <span class="fragment">Definition</span></h3>
+					<ul class="fragment">
+						<li>What is a module?</li>
+						<li>Why should it be asyncronous?</li>
+						<li>Why should I care about defining one?</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>While we've been doing this in html</h2>
+					<div><pre><code>
+&lt;script src="scripts/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/plugin1.jquery.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/plugin2.jquery.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/plugin3.jquery.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/plugin4.jquery.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/backbone.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/underscore.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/library1.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/library2.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/myApp.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/util1.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/util2.js"&gt;&lt;/script&gt;
+&lt;script src="scripts/myPage.js"&gt;&lt;/script&gt;
+					</code></pre></div>
+				</section>
+
+				<section>
+					<h2>Meanwhile back at the server...</h2>
+					<img src="images/amd/hall-of-justice.jpg">
+				</section>
+
+				<section>
+					<dl>
+						<dt>Java</dt>
+						<dd>import package.Class</dd>
+						<dt>C#</dt>
+						<dd>using package.Class</dd>
+						<dt>Ruby</dt>
+						<dd>require "library"</dd>
+						<dt>Node</dt>
+						<dd>require "library" // commonjs</dd>
+					</dl>
+					<br>
+				</section>
+
+				<section>
+					<h3>From the RequireJS Docs:</h3>
+					<blockquote>
+						A module is different from a traditional script file in that it defines a well-scoped object that avoids polluting the global namespace. It can explicitly list its dependencies and get a handle on those dependencies without needing to refer to global objects, but instead receive the dependencies as arguments to the function that defines the module.
+					</blockquote>
+					<blockquote>
+						Modules in RequireJS are an extension of the Module Pattern, with the benefit of not needing globals to refer to other modules.  The RequireJS syntax for modules allows them to be loaded as fast as possible, even out of order, but evaluated in the correct dependency order...
+					</blockquote>
+				</section>
+
+				<section>
+					<h2>Why do we need this?</h2>
+					<p>Let's think about this for a minute:</p>
+				</section>
+
+				<section>
+					<h2>Not so long ago <span style="font-size: 50%;">(CNN, Feb, 03)</span></h2>
+					<img src="images/amd/cnn.main.js.png" height="600">
+					<h3>Buzillion line bags of functions</h3>
+				</section>
+
+				<section>
+					<h2>And recently, we have...</h2>
+					<p>Libraries galore, and some decent patterns:</p>
+					<pre style="text-align: center;"><code>scripts/mypage.js</code></pre>
+					<div><pre><code>
+(function ($) {
+
+	MyGlobalAPINamespace = (function () {
+
+		// ... set stuff and do some private things
+
+		SomeLibraryINeed.doSomething()
+
+		// return my public API
+		return {
+
+			cleanLaundry: function() { //... },
+
+			stuffIThinkIsNiceAboutMe: function() { //... }
+
+		};
+
+	})();
+
+}(jQuery));
+					</code></pre></div>
+				</section>
+
+				<section>
+					<h2>Which is nice(r)...</h2>
+					<ul>
+						<li>more separation of concerns</li>
+						<li>more modular chunks</li>
+						<li>hides a lot of our internals from the global</li>
+						<li>finding things, chance > snowball, hell</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>But what happens when we...</h2>
+					<div><pre><code>
+&lt;script src=&quot;scripts/plugin.jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/jquery.js&quot;&gt;&lt;/script&gt;
+					</div></pre></code>
+				</section>
+
+				<section>
+					<h2>Or...</h2>
+					<div><pre><code>
+&lt;script src=&quot;scripts/jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/plugin1.jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/plugin2.jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/plugin3.jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/plugin4.jquery.js&quot;&gt;&lt;/script&gt;
+...
+&lt;script src=&quot;scripts/jquery.js&quot;&gt;&lt;/script&gt;
+					</div></pre></code>
+				</section>
+
+				<section>
+					<h2>And who's responsible for making sure that never happens?</h2>
+					<div class="fragment">Maybe not you?</div>
+				</section>
+
+				<section>
+					<h3>Let's look at some of the expectations we're living with here...</h3>
+					<div><pre><code>
+(function ($) {
+
+		MyGlobalAPINamespace = (function () {
+
+			// ... set stuff and do some private things
+
+			SomeLibraryINeed.doSomething()
+
+			// return my public API
+			return {
+
+				cleanLaundry: function() { //... },
+
+				stuffIThinkIsNiceAboutMe: function() { //... }
+
+			}
+
+		})();
+
+}(jQuery));
+					</div></pre></code>
+
+					<h3 class="fragment"><code>SomeLibraryINeed</code> has to be there</h3>
+					<h3 class="fragment"><code>jQuery</code> has to be there</h3>
+				</section>
+
+				<section>
+					<h2>And what about <code class="">MyGlobalAPINamespace</code>?</h2>
+					<p class="fragment">What if it was already defined?</p>
+					<p class="fragment">or this file is loaded again?</p>
+					<p class="fragment">or some other library wants MyGlobalAPINamespace?</p>
+					<br>
+					<p class="fragment">Portal environments, multi-contributor apps?  Multiple versions of my API? (Galileo)</p>
+					<br>
+					<p class="fragment">If this file grew, how easy would it be to see what my dependencies actually are?</p>
+					<p class="fragment">SomeOtherLibrary.doSomethingElse() hidden on line 3045 (Don't you dare make a 3000 line file!)</p>
+				</section>
+
+				<section>
+					<h2>An what about performance?</h2>
+					<p>Nice tight modules = Happy coder...</p>
+					<p class="fragment">Sad YSLOW</p>
+					<br>
+					<div class="fragment">
+						<p>Lots of http</p>
+						<p>Script blocking</p>
+					</div>
+				</section>
+
+				<section>
+					<h2>So you optimize like crazy</h2>
+					<div><pre><code>
+&lt;script src=&quot;scripts/jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/my-big-ass-optimized-app-in-one-file.js&quot;&gt;&lt;/script&gt;
+					</div></pre></code>
+					<div class="fragment">
+						<p>Common bundles</p>
+						<p>Page level bundles</p>
+					</div>
+				</section>
+
+				<section>
+					<h3>Rails/Srockets does this best, but...</h3>
+					<div>
+						<p>Potentially parsing a lot of code you may not use</p>
+						<p>Explicit, separate, server side configuration</p>
+						<p>Can get stale</p>
+					</div>
+				</section>
+
+				<section>
+					<h3>Our pain points:</h3>
+					<ul>
+						<li>module optimization headaches</li>
+						<li>opaque dependencies</li>
+						<li>script tag ordering</li>
+						<li>namespaces</li>
+						<li>blocking behavior</li>
+					</ul>
+				</section>
+
+				<section>
+					<img src="images/amd/joy_by_cheese_is_good-d4hbgjr.jpg">
+				</section>
+
+				<section>
+					<h3>And while we're at it...</h3>
+					<p>I'm smart and I like following an MVC pattern in my front end code</p>
+					<p class="fragment">A JavaScript Controller should know how to build its view</p>
+					<p class="fragment"><strong>We need:</strong> templates, css, i18n dictionaries</p>
+				</section>
+
+				<section>
+					<h3>We need a module system for JavaScript</h3>
+				</section>
+
+				<section>
+					<h3>RequireJs</h3>
+					<p>Implements AMD</p>
+					<p>Came out of commonjs module definition rejiggered for the browser and asynchronous loading</p>
+				</section>
+
+				<section>
+					<h2>Without further ado...</h2>
+
+					<p><code>scripts/myApp.js</code></p>
+					<div><pre><code>
+require(['blinger','jquery'], function(blinger, $) {
+	// I get here only when all my dependencies are available
+	$elem = $('#blingMe').hide();
+
+	// ... other stuff
+
+	blinger.bling($elem);
+});
+					</div></pre></code>
+
+					<p><code>scripts/myModule.js</code></p>
+					<div><pre><code>
+define([
+	'jquery',
+	'lodash',
+	'text!../templates/bling.html',
+	'i18n!../nls/bling',
+	'json!../json/feed.json',
+	'css!../css/bling.css'
+], function($, _, tmpl, i18n, data) {
+
+	var compTmpl = _.template(tmpl);
+	data = $.extend({}, i18n, data);
+
+	$.fn.bling = function() {
+		return $(this).html(compTmpl(data));
+	};
+
+	return {
+		bling: function($elem) {
+			$elem.bling().show();
+		}
+	}
+});
+					</div></pre></code>
+				</section>
+
+				<section>
+					<h2>Say, nice module!</h2>
+					<iframe src="exmpl/" height="500" width="600"></iframe>
+				</section>
+
+				<section>
+					<h2>Optimization</h2>
+					<code>node r.js -o baseUrl=. name=myApp out=myApp-built.js</code>
+					<img class="fragment" src="images/amd/raw.png">
+					<img class="fragment" src="images/amd/opt.png">
+				</section>
+
+				<section>
+					<h2>Questions?</h2>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="bower_components/reveal.js/lib/js/head.min.js"></script>
+		<script src="bower_components/reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'bower_components/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'bower_components/reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'bower_components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'bower_components/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'bower_components/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

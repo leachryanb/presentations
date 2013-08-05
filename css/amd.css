@@ -1,0 +1,8 @@
+section dl dt {
+  padding-top: 0.5em !important;
+  font-weight: bold !important;
+  font-weight: bold;
+}
+section dl dd {
+  opacity: 0.5;
+}

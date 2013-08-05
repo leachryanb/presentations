@@ -1,0 +1,12 @@
+.part1 body {
+	background: #176489;
+}
+.part2 body {
+	background: #D9A41B;
+}
+.part3 body {
+	background: #D9441D;
+}
+.beatlemania {
+	max-height: 200px !important;
+}
