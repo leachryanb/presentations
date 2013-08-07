@@ -19,6 +19,7 @@
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css">
+
 		<link rel="stylesheet" href="css/client_side_devops.css">
 
 		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
@@ -32,76 +33,326 @@
 	</head>
 
 	<body>
-
 		<div class="reveal">
-
-			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section data-state="part1">
-					<h1>Client-side dev-ops and Workflow</h1>
+
+				<section>
+					<h1>WizBang SPA 3000!</h1>
+					<p>Setup guide for your shiny new client-side WebApp</p>
+					<h3 class='part1 section-title'>My WebApp lives <em>where?!</em></h3>
+					<h3 class='part2 section-title'>The new toolbox</h3>
+					<h3 class='part3 section-title'>The workflow</h3>
 				</section>
 
 				<section data-state="part1">
-					<h3>Part 1: The Development Infrastructure</h3>
-
+					<h3>The Problem Space</h3>
 					<ul>
-						<li class='fragment'>Build tooling on Node with Grunt.js</li>
-						<li class='fragment'>3rd party library dependency management with NPM, Bower and RequireJs</li>
-						<li class='fragment'>Skaffolding with Grunt and Yeoman</li>
+						<li>The "Rich"ness of our Rich Internet Applications and Service Oriented Architectures have pushed the UI tier of our WebApps almost entirely down to <strong>the browser</strong>.</li>
+						<li><strong>The browser</strong> is a harsh and variable landscape with very unique constraints</li>
+						<li>We need tooling to support our app in its new environment</li>
 					</ul>
 				</section>
 
 				<section data-state="part1">
-					<h3>Node.js</h3>
-
-					<blockquote>Node.js is a platform built on Chrome's <strong style="color:#D9A41B">JavaScript runtime</strong> for easily building fast, scalable network applications...</blockquote>
-				</section>
-
-				<section data-state="part1">
-					<h3>Alright, so... ?</h3>
+					<h3>Client-side code requires first class architecture and tooling</h3>
 					<ul>
-						<li>Excellent capabilites as an application server</li>
-						<li class="fragment">(We're not there yet)</li>
-						<li class="fragment">Fast JavaScript runtime === fast utilities...</li>
-						<li class="fragment">Written in "The language of the web"</li>
+						<li>Compilers</li>
+						<li>Frameworks</li>
+						<li>Dependency Management</li>
+						<li>Unit Tests Runners</li>
+						<li>Task Runners</li>
+						<li>Packaging and Deployment</li>
 					</ul>
 				</section>
 
 				<section data-state="part1">
-					<h3>And the crowd went wild!</h3>
-					<p><img class="beatlemania" src="images/client_side_devops/beatlemania.jpg"></p>
-					<p class="fragment">Me, Ben Almen, and the rest of the JavaScript community, anyway</p>
+					<h3>The Browser as a Deployment Target</h3>
+					<ul>
+						<li>Browser is unique with bandwidth constraints</li>
+						<li>Browsers (especially on mobile) hate multiple http requests</li>
+					</ul>
 				</section>
 
 				<section data-state="part1">
-					<h3>Ben who?</h3>
-					<p>Ben Almen, jQuery plugin creator extraordinaire, built Grunt.js...</p>
+					<h3>Modularity vs optimization</h3>
+					<ul>
+						<li>Development maintainability with small modules</li>
+						<li>Optimization and deployment respective of all the YSlow/Pagespeed rules</li>
+					</ul>
+				</section>
+
+				<section data-state="part1">
+					<h3>Context - What about <em>my</em> needs?</h3>
+					<ul>
+						<li>Server doesn't have the context to manage the client</li>
+						<li>Client-side dependencies and optimization strategies quickly get out of sync and stale</li>
+						<li>EbscoHost - ClientResourceController, JsConfig.xml, CssConfig.xml</li>
+						<li>Who knows who depends on what?</li>
+						<li>Ruby on Rails with "Sprockets" has managed best, but still gets out of sync</li>
+					</ul>
+					<blockquote>It's like you just don't get me!</blockquote>
+				</section>
+
+				<section data-state="part1">
+					<section>
+						<h3>Client-side code increasingly requires a compilation step</h3>
+						<ul>
+							<li>Pre-processors</li>
+							<li>JavaScript Modules and CSS @imports need to be optimized into concatenated bundles</li>
+							<li>Unit tests</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Preprocessor Languages</h3>
+						<ul>
+							<li>HAML, Jade, Handlebars, Mustache, Markdown &gt;&gt; HTML</li>
+							<li>SASS, LESS, Compass &gt;&gt; CSS</li>
+							<li>CoffeeScript, TypeScript &gt;&gt; JavaScript</li>
+						</ul>
+					</section>
+				</section>
+
+				<section data-state="part1">
+					<h3>Unit Testing</h3>
+					<ul>
+						<li>JavaScript finally has great unit testing frameworks</li>
+						<li>Mocha, Chai, Jasmine, QUnit, Mockjax, Sinon, Karma</li>
+						<li class="fragment">Need a way to easily run them</li>
+						<li class="fragment">Need a way to participate in the CI conversation</li>
+					</ul>
+				</section>
+
+
+				<section data-state="part2">
+					<h3>The Solution Space</h3>
+					<h4>"A" Grade tooling for Client-side Applications</h4>
 				</section>
 
 				<section data-state="part2">
-					<h3>Part 2: The Development Workflow</h3>
-
+					<h3>Node.js</h3>
 					<ul>
-						<li class='fragment'>Modularity and optimization with RequireJs</li>
-						<li class='fragment'>Client-side Model/View management and server synchronization with Backbone.js</li>
-						<li class='fragment'>Short feedback loop unit tests, functional tests and mocking with Jasmine, Mockjax and PhantomJs</li>
+						<li>JavaScript runtime environment built on Chrome's V8 JavaScript engine</li>
+						<li>Developed as a server solution for high volume network applications</li>
+						<li>Nirvana of a single language stack from the browser all the way to the database</li>
+					</ul>
+					<ul class="fragment">
+						<li>Client-side developers have embraced Node as their platform of choice for development</li>
+						<li>Speaks JavaScript, the ubiquitous "Language of the web"</li>
+					</ul>
+				</section>
+
+				<section data-state="part2">
+					<h3>NPM: Node Package Manager</h3>
+					<ul>
+						<li>Semantic versioning package management system based upon git</li>
+						<li>Node.js (server-side) package modules consumed by Node.js applications.  eg.:
+							<ul>
+								<li>Bower</li>
+								<li>Grunt</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-state="part2">
+					<h3>Bower</h3>
+					<ul>
+						<li>Semantic versioning package management system based upon git</li>
+						<li>Runtime (client-side) library dependencies.  eg.:
+							<ul>
+								<li>jQuery</li>
+								<li>Backbone</li>
+								<li>Bootstrap</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section data-state="part2">
+					<h3>Grunt.js</h3>
+					<ul>
+						<li>Node base toolset ala Make, Rake, Ant, NAnt</li>
+						<li>Set of NPM utility packages</li>
+						<li>Specifically created to automate client side preprocessing, scaffolding and deployment tasks</li>
+						<li>Pre-compilation, optimization, unit test runners, packaging and deployment</li>
+						<li>Gruntfile</li>
+					</ul>
+				</section>
+
+				<section data-state="part2">
+					<section>
+						<h3>JavaScript Unit Testing</h3>
+						<ul>
+							<li>Jasmine, QUnit, Mocha, Mockjax, Sinon, Karma: JavaScript unit test assertion libraries and runners</li>
+							<li>PhantomJs: Super fast headless WebKit browser</li>
+							<li>Different testing styles, many good options</li>
+							<li>T/BDD Test/Behavior Driven Development</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>We use Mocha, Chai, Sinon and Karma</h3>
+						<ul>
+							<li>Mocha - JavaScript testing framework</li>
+							<li>Chai - BDD style assertion library - expect(1).to.be(1)</li>
+							<li>Sinon - Mocking library.  Mock and track function execution and ajax requests</li>
+							<li>Karma - A Node.js based browser driver which reports back to grunt and the CLI
+								<ul>
+									<li>Will drive any browser on your machine, just tell it where it is</li>
+									<li>Build machine/CI - fail the build</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>PhantomJs - A headless Webkit browser instance running on Node.js</h3>
+						<ul>
+							<li>All the browser, non of the visuals</li>
+							<li>Very fast</li>
+							<li>Perfect for fast feedback</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Code coverage</h3>
+						<ul>
+							<li>Istanbul, JSCover, Blanket.js</li>
+							<li>Currently using Istanbul</li>
+							<li>Coverage reporting with thresholds</li>
+							<li>Fail the build if coverage thresholds not met</li>
+						</ul>
+					</section>
+				</section>
+
+				<section data-state="part2">
+					<section>
+						<h3>Modularity with AMD (Asynchronous Module Definition)</h3>
+						<ul>
+							<li>AMD is a module pattern specifically designed for non-blocking dependency management in the browser</li>
+							<li>Allows for self-contained, self-aware portable modules</li>
+							<li>simple api: define/require</li>
+						</ul>
+					</section>
+
+					<section>
+						<p><em>my-module.js</em></p>
+
+<pre><code>define([
+	'jquery',
+	'underscore',
+	'lib/classA',
+	'lib/classB',
+	'text!tmpl/my-module.html',
+	'i18n!nls/my-module',
+	'css!styles/stylesheet'
+	], function($, _, ClassA, ClassB, tmpl, dict) {
+
+	var myTemplate = _.template(tmpl);
+	var myDomElement = $('#anId').append(myTemplate(dict)).show();
+
+	var myThingA = new ClassA();
+	var myMaJig = new ClassB();
+
+	// Do stuff...
+
+});
+</code></pre>
+
+						<p><em>app.js</em></p>
+
+<pre><code>require(['my-module']);</code></pre>
+					</section>
+
+					<section>
+						<h3><code>my-module</code> explicitly states its own dependencies</h3>
+						<ul>
+							<li>Path based ids map to real files</li>
+							<li>Self documenting clean dependency graph</li>
+							<li>Defines its own:
+
+								<ul>
+									<li>library dependencies</li>
+									<li>base classes</li>
+									<li>template</li>
+									<li>translations</li>
+									<li>css stylesheet</li>
+								</ul>
+							</li>
+							<li>Can be optimized by itself or as part of a larger chain of dependencies</li>
+						</ul>
+						<a href="amd.html">Full talk on AMD</a>
+					</section>
+				</section>
+
+				<section data-state="part2">
+					<h3>Backbone.js</h3>
+					<ul>
+						<li>Server-client data synchronization</li>
+						<li>Model/View/ViewModel pattern</li>
+						<li>What is an application without data? (Not an application)</li>
+						<li>Backbone provides a CLEAN, event driven mechanism for data synchronization and binding to the client view</li>
+						<li>Models sync with RESTful resource urls and emit client side events</li>
+						<li>Views listen to DOM and Model events</li>
+						<li>Separate them concerns!</li>
+					</ul>
+				</section>
+
+
+				<section data-state="part3">
+					<h2>The Workflow</h2>
+					<ul>
+						<li>Branch</li>
+						<li>Tests</li>
+						<li>Commits</li>
+						<li>Pull Request</li>
+						<li>Merge</li>
+						<li>Deploy</li>
 					</ul>
 				</section>
 
 				<section data-state="part3">
-					<h3>Part 3: Optimization, Packaging and Deployment</h3>
-
+					<h3>TDD - Test driven development</h3>
+					<p>Red, Green, Re-factor</p>
 					<ul>
-						<li class='fragment'>Individual developer workflow with pull-request code reviews</li>
-						<li class='fragment'>Deployment with Git, Jenkins and the "Git workflow"</li>
+						<li>Write a failing test describing your problem and its absent solution</li>
+						<li>Satisfy the tests down and dirty, filling in more tests as you come to understand the problem better</li>
+						<li>Now that you have all passing tests, you effectively have a working regression suite</li>
+						<li>Re-factor your code for maintainability and best practices, keeping your tests green</li>
+						<li>"Re-factoring without unit tests is just moving stuff around."</li>
 					</ul>
 				</section>
 
-				<section>
-					<h3>Talkin' bout my generation...</h3>
+				<section data-state="part3">
+					<h3>Short feedback loop</h3>
+					<ul>
+						<li>Giving the developer as close to instantaneous feedback on regressions as possible is the holy grail</li>
+						<li>We need the context!</li>
+						<li>I just changed <em>that</em> and now my tests are failing.  I guess I can't do <em>that</em>.  Know what <em>that</em> is.</li>
+						<li>Recognize the problem closest to the time of its inception.</li>
+					</ul>
 				</section>
 
-			</div>
+				<section data-state="part3">
+					<h3>A Day with Git</h3>
+					<ol>
+						<li>Grab feature card or bug from JIRA</li>
+						<li>Make a local branch for it</li>
+						<li>Logical thought > commit > logical thought > commit</li>
+						<li>Push to remote.  Have a beer.</li>
+						<li>Wash, rinse, repeat</li>
+						<li>Done. Push to remote</li>
+						<li>Create Pull request. Get reviewed</li>
+						<li>You are a major dissapointment. Refactor</li>
+						<li>Repeat steps 3 - 7</li>
+						<li>Pull Request Approved.  Code Merged.</li>
+						<li>Jenkins Deploys your feature.  You're a hero!</li>
+						<li>Move your card across the board.  Have another beer.</li>
+					</ol>
+				</section>
+
+				<section data-state="part3">Deployment with Git, Jenkins and the "Git workflow"</section>
 
 		</div>
 

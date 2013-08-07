@@ -1,12 +1,19 @@
-.part1 body {
+.part1 body,
+body .part1 {
 	background: #176489;
 }
-.part2 body {
-	background: #D9A41B;
+.part2 body,
+body .part2 {
+	background: #C89100;
 }
-.part3 body {
+.part3 body,
+body .part3 {
 	background: #D9441D;
 }
 .beatlemania {
 	max-height: 200px !important;
+}
+
+body .section-title {
+	padding: 0.5em;
 }
